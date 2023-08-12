@@ -1,0 +1,2 @@
+class Clue:
+    description: str

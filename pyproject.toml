@@ -12,7 +12,7 @@ SQLAlchemy = "^2.0.17"
 asyncpg = "^0.27.0"
 alembic = "^1.11.1"
 uvicorn = {extras = ["standard"], version = "^0.22.0"}
-psycopg = "^3.1.10"
+webcolors = "^1.13"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.0.0"
