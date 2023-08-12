@@ -1,0 +1,68 @@
+Сокращения:
+    УИ - уникальный индентефикатор
+-------- PERSON --------
+person - базовый персонаж
+person:
+    id - УИ
+    fio - фамилия имя отчестов
+    characteristics: PersonCharacteristics -характеристики
+    additional information: Dossier - доп информация
+
+Характеристики person[PersonCharacteristics]:
+    weight - вес 
+    height - рост
+    age - возраст
+    sex - пол
+    eye color - цвет глаз
+    hair color - цвет волос
+    nationality - национальность
+
+Досье person[Dossier]:  
+    history - история персонажа
+    hobbies - увлечения
+    motives - мотивы
+    social status - соц. статус
+    marriage status - статус замужества
+
+-------- CRIMINAL --------
+
+criminal->person:
+    marder type: [MarderType]
+
+Типы marder[MarderType]:
+    marder - убийца (не имеет предпочтения в стиле убийства)
+    maniac - маньяк
+    Типы маньяков:
+        poisoner - отрваитель
+        strangler - душитель 
+        dismantler - расчленитель
+
+-------- DETECTIVE HISTORY --------
+detective history - детективная история
+members in history - person учавствующие в detective history
+Составляющие members in history[MembersInHistory]:
+    detective history - УИ
+    person - УИ
+    person_status: StatusInDetectiveHistory - статус person в ходе detective history
+
+Составляющие detective history:
+    clues - уликик
+    proofs - доказательства
+    incident description - описание проишествия
+    suspect: list[suspect] = None - список подозреваемых (по умольчанию пустой)
+    witnesses: list[witness] - список свидетелей # минимальная кол-во 1
+    members: list[MembersInHistory] - список всех участников дела
+    guilty: criminal - виновный
+    answer - ответ для detective history
+
+Статусы person во время раследвания[StatusInDetectiveHistory]:
+    suspect - подозреваемый
+    witness - свидетель
+    criminal - преступник
+    innocent - невиновный
+    guilty - виновный
+-------------
+client - Пользователь
+
+client:
+    
