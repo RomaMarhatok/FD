@@ -1421,6 +1421,22 @@ files = [
 anyio = ">=3.0.0"
 
 [[package]]
+name = "webcolors"
+version = "1.13"
+description = "A library for working with the color formats defined by HTML and CSS."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "webcolors-1.13-py3-none-any.whl", hash = "sha256:29bc7e8752c0a1bd4a1f03c14d6e6a72e93d82193738fa860cbff59d0fcc11bf"},
+    {file = "webcolors-1.13.tar.gz", hash = "sha256:c225b674c83fa923be93d235330ce0300373d02885cef23238813b0d5668304a"},
+]
+
+[package.extras]
+docs = ["furo", "sphinx", "sphinx-copybutton", "sphinx-inline-tabs", "sphinx-notfound-page", "sphinxext-opengraph"]
+tests = ["pytest", "pytest-cov"]
+
+[[package]]
 name = "websockets"
 version = "11.0.3"
 description = "An implementation of the WebSocket Protocol (RFC 6455 & 7692)"
@@ -1503,4 +1519,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "f72fd0fe50f2de1865cdb5f9b48dc869f17983b4a9226520179b20ae6686170b"
+content-hash = "8f6bb200569bfc23289a6fbb78d3285e633bb0f05c8c938941fcb4efa7438522"
