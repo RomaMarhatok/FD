@@ -1,3 +1,5 @@
+import uuid
+from dataclasses import field
 import hobbies
 import motives
 from status import marrige_status, social_status
@@ -17,3 +19,4 @@ class Dossier:
         self.motives = motives
         self.social_status = social_status
         self.marriage_status = marriage_status
+        self.ref: uuid.UUID = field(default_factory=uuid.uuid4)
