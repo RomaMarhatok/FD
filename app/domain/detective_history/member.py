@@ -1,11 +1,10 @@
+from dataclasses import dataclass
 import person
 import status
 
-# from . import DetectiveHistory
 
-
+@dataclass
 class DetectiveHistoryMember:
-    # detective_history: DetectiveHistory
     person: person.Person
     person_status: status.PersonStatusInDetectiveHistory = (
         status.PersonStatusInDetectiveHistory.INNOCENT
