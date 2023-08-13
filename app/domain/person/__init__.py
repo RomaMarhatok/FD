@@ -1,6 +1,6 @@
 import uuid
-import characteristics
-import dossier
+from app.domain.person import characteristics
+from app.domain.person import dossier
 from dataclasses import dataclass, field
 
 

@@ -1,8 +1,8 @@
 import uuid
 from dataclasses import field
-import hobbies
-import motives
-from status import marrige_status, social_status
+from app.domain.person.dossier import hobbies
+from app.domain.person.dossier import motives
+from app.domain.person.dossier.status import marrige_status, social_status
 
 
 class Dossier:

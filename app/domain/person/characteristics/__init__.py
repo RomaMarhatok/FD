@@ -1,7 +1,7 @@
 import uuid
-import sex
-import color
-import special_sign
+from app.domain.person.characteristics import sex
+from app.domain.person.characteristics import color
+from app.domain.person.characteristics import special_sign
 from dataclasses import field
 
 
