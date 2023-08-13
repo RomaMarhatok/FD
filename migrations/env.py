@@ -1,3 +1,4 @@
+import os
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -10,8 +11,8 @@ from app.db.models.base import SqlAlchemyBaseModel
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-
-config.set_main_option("sqlalchemy.url", settings.DB_URL)
+if "TESTING" not in os.environ:
+    config.set_main_option("sqlalchemy.url", settings.DB_URL)
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 if config.config_file_name is not None:
@@ -48,6 +49,8 @@ def run_migrations_offline() -> None:
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
+        compare_server_default=True,
+        compare_type=True,
     )
 
     with context.begin_transaction():
