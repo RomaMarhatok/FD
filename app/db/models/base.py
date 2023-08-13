@@ -1,8 +1,6 @@
-from sqlalchemy import MetaData, orm
-from sqlalchemy.orm import registry
-
-mapper_registry = registry()
+from sqlalchemy import MetaData
+from sqlalchemy.orm import DeclarativeBase
 
 
-class SqlAlchemyModel(orm.DeclarativeBase):
+class SqlAlchemyBaseModel(DeclarativeBase):
     metadata = MetaData()

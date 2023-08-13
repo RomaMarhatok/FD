@@ -1,9 +1,10 @@
-from sqlalchemy import Column, Text, UUID
 from app.db.models.base import SqlAlchemyBaseModel
+from sqlalchemy import Column, Text, Table, Integer, String
 
-
-class SpecialSignModel(SqlAlchemyBaseModel):
-    __tablename__ = "special_sign"
-    id = Column(UUID(as_uuid=True), primary_key=True)
-    ref = Column(UUID(as_uuid=True), unique=True, nullable=True)
-    description = Column(Text())
+special_sing_model = Table(
+    "special_sign",
+    SqlAlchemyBaseModel.metadata,
+    Column("id", Integer, primary_key=True),
+    Column("ref", String(255), unique=True, nullable=True),
+    Column("description", Text()),
+)
