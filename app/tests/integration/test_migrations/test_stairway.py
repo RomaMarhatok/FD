@@ -16,5 +16,5 @@ def get_revisions():
 @pytest.mark.parametrize("revision", get_revisions())
 def test_stairway(alembic_config: Config, revision: Script):
     upgrade(alembic_config, revision.revision)
-    downgrade(alembic_config, revision.revision)
+    downgrade(alembic_config, revision.down_revision or "-1")
     upgrade(alembic_config, revision.revision)

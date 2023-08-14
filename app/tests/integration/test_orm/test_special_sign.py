@@ -1,4 +1,3 @@
-import uuid
 from sqlalchemy import text, select
 from sqlalchemy.orm import Session
 from app.domain.person.characteristics.special_sign import SpecialSign
