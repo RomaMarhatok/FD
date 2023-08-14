@@ -1,8 +1,10 @@
-import uuid
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 
 @dataclass
 class Hobbies:
+    ref: str
     description: str
-    ref: uuid.UUID = field(default_factory=uuid.uuid4)
+
+    def __hash__(self) -> int:
+        return hash(self.ref)

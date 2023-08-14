@@ -1,4 +1,4 @@
-from webcolors import rgb_to_name
+from webcolors import rgb_to_name, name_to_rgb
 
 
 class RGBException(Exception):
@@ -56,3 +56,25 @@ class Color:
     @property
     def name(self) -> str:
         return rgb_to_name(self.rgb)
+
+    def __composite_values__(self) -> tuple[str]:
+        return (self.name,)
+
+    def __eq__(self, other: object) -> bool:
+        return (
+            isinstance(other, Color)
+            and self._red == other._red
+            and self._green == self._green
+            and self._blue == self._blue
+        )
+
+    def __ne__(self, other) -> bool:
+        return not self.__eq__(other)
+
+    @classmethod
+    def color_from_name(cls, color_name: str) -> "Color":
+        red, green, blue = name_to_rgb(color_name)
+        return Color(red=red, green=green, blue=blue)
+
+    def __str__(self) -> str:
+        return self.name
