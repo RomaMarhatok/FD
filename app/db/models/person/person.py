@@ -12,11 +12,11 @@ person_table = Table(
     Column(
         "characteristics_id",
         ForeignKey("characteristics.id", ondelete="SET NULL"),
-        nullable=False,
+        nullable=True,
     ),
     Column(
         "dossier_id",
         ForeignKey("dossier.id", ondelete="SET NULL"),
-        nullable=False,
+        nullable=True,
     ),
 )

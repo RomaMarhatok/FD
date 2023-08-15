@@ -28,6 +28,6 @@ special_sign_in_characteristics_table = Table(
     Column(
         "special_sign_id",
         ForeignKey("special_sign.id", ondelete="SET NULL"),
-        nullable=False,
+        nullable=True,
     ),
 )

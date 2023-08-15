@@ -26,5 +26,5 @@ dossier_motives_table = Table(
     SqlAlchemyBaseModel.metadata,
     Column("id", Integer(), primary_key=True),
     Column("dossier_id", ForeignKey("dossier.id", ondelete="CASCADE"), nullable=False),
-    Column("motive_id", ForeignKey("motive.id", ondelete="SET NULL"), nullable=False),
+    Column("motive_id", ForeignKey("motive.id", ondelete="SET NULL"), nullable=True),
 )
