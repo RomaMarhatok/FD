@@ -58,9 +58,9 @@ members in history - person учавствующие в detective history
 Статусы person во время раследвания[StatusInDetectiveHistory]:
     suspect - подозреваемый
     witness - свидетель
-    criminal - преступник
+    criminal - преступник (имеется ввиду что он на момент является подсудимым)
     innocent - невиновный
-    guilty - виновный
+    guilty - виновный (выновный в приступлении самого дела)
 -------------
 client - Пользователь
 
