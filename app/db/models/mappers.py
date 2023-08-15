@@ -12,12 +12,14 @@ from app.db.models.person.dossier import (
     dossier_hobbies_table,
 )
 from app.db.models.person.person import person_table
+from app.db.models.criminal.criminal import criminal_table
 from app.domain.person.characteristics.special_sign import SpecialSign
 from app.domain.person.characteristics import Characteristics, color
 from app.domain.person.dossier.motives import Motives
 from app.domain.person.dossier.hobbies import Hobbies
 from app.domain.person.dossier import Dossier
 from app.domain.person import Person
+from app.domain.criminal import Criminal
 
 
 def init_mappers():
@@ -63,7 +65,7 @@ def init_mappers():
             ),
         },
     )
-    mapper.map_imperatively(
+    person_mapper = mapper.map_imperatively(
         Person,
         person_table,
         properties={
@@ -73,5 +75,12 @@ def init_mappers():
             "dossier": relationship(
                 dossier_mapper,
             ),
+        },
+    )
+    mapper.map_imperatively(
+        Criminal,
+        criminal_table,
+        properties={
+            "person": relationship(person_mapper),
         },
     )
