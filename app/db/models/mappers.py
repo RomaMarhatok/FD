@@ -11,11 +11,13 @@ from app.db.models.person.dossier import (
     dossier_motives_table,
     dossier_hobbies_table,
 )
+from app.db.models.person.person import person_table
 from app.domain.person.characteristics.special_sign import SpecialSign
 from app.domain.person.characteristics import Characteristics, color
 from app.domain.person.dossier.motives import Motives
 from app.domain.person.dossier.hobbies import Hobbies
 from app.domain.person.dossier import Dossier
+from app.domain.person import Person
 
 
 def init_mappers():
@@ -24,7 +26,7 @@ def init_mappers():
         SpecialSign,
         special_sing_table,
     )
-    mapper.map_imperatively(
+    characteristics_mapper = mapper.map_imperatively(
         Characteristics,
         characteristics_table,
         properties={
@@ -45,7 +47,7 @@ def init_mappers():
     )
     motive_mapper = mapper.map_imperatively(Motives, motives_table)
     hobby_mapper = mapper.map_imperatively(Hobbies, hobbies_table)
-    mapper.map_imperatively(
+    dossier_mapper = mapper.map_imperatively(
         Dossier,
         dossier_table,
         properties={
@@ -58,6 +60,18 @@ def init_mappers():
                 motive_mapper,
                 secondary=dossier_motives_table,
                 collection_class=set,
+            ),
+        },
+    )
+    mapper.map_imperatively(
+        Person,
+        person_table,
+        properties={
+            "characteristics": relationship(
+                characteristics_mapper,
+            ),
+            "dossier": relationship(
+                dossier_mapper,
             ),
         },
     )
