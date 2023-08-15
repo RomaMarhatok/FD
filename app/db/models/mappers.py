@@ -15,6 +15,12 @@ from app.db.models.detective_history.proofs import proof_clue_table, proof_table
 from app.db.models.detective_history.clue import clue_table
 from app.db.models.person.person import person_table
 from app.db.models.criminal.criminal import criminal_table
+from app.db.models.detective_history.detective_history import (
+    detective_history_clue_table,
+    detective_history_member_table,
+    detective_history_proofs_table,
+    detective_history_table,
+)
 from app.domain.person.characteristics.special_sign import SpecialSign
 from app.domain.person.characteristics import Characteristics, color
 from app.domain.person.dossier.motives import Motives
@@ -24,6 +30,8 @@ from app.domain.person import Person
 from app.domain.criminal import Criminal
 from app.domain.detective_history.clue import Clue
 from app.domain.detective_history.proofs import Proofs
+from app.domain.detective_history.member import DetectiveHistoryMember
+from app.domain.detective_history import DetectiveHistory
 
 
 def init_mappers():
@@ -89,7 +97,7 @@ def init_mappers():
         },
     )
     clue_mapper = mapper.map_imperatively(Clue, clue_table)
-    mapper.map_imperatively(
+    proof_mapper = mapper.map_imperatively(
         Proofs,
         proof_table,
         properties={
@@ -98,5 +106,33 @@ def init_mappers():
                 secondary=proof_clue_table,
                 collection_class=set,
             )
+        },
+    )
+    detective_history_member_mapper = mapper.map_imperatively(
+        DetectiveHistoryMember,
+        detective_history_member_table,
+        properties={
+            "person": relationship(person_mapper),
+        },
+    )
+    mapper.map_imperatively(
+        DetectiveHistory,
+        detective_history_table,
+        properties={
+            "clues": relationship(
+                clue_mapper,
+                secondary=detective_history_clue_table,
+                collection_class=set,
+            ),
+            "proofs": relationship(
+                proof_mapper,
+                secondary=detective_history_proofs_table,
+                collection_class=set,
+            ),
+            "members": relationship(
+                detective_history_member_mapper,
+                collection_class=set,
+            ),
+            "history_answer": relationship(person_mapper),
         },
     )

@@ -55,3 +55,32 @@ def insert_dossier(
         VALUES('{ref}','{history}','{social_status}','{marriage_status}')"""
         )
     )
+
+
+def insert_person(session: Session):
+    insert_characteristics(
+        "characteristics-ref",
+        12.3,
+        10.3,
+        10,
+        "MALE",
+        "blue",
+        "brown",
+        "chinese",
+        session,
+    )
+    [[characteristics_id]] = session.execute(text("SELECT id FROM characteristics"))
+    insert_dossier(
+        "dossier-ref",
+        "some history text 1",
+        "WORKS",
+        "MARRIED",
+        session,
+    )
+    [[dossier_id]] = session.execute(text("SELECT id FROM dossier"))
+    session.execute(
+        text(
+            f"""INSERT INTO person(ref,characteristics_id,dossier_id)
+            VALUES('person-ref',{characteristics_id},{dossier_id})"""
+        )
+    )
