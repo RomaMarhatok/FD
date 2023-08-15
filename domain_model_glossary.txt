@@ -54,7 +54,10 @@ members in history - person учавствующие в detective history
     members: list[MembersInHistory] - список всех участников дела
     guilty: criminal - виновный
     answer - ответ для detective history
-
+proofs:
+    ref - УИ
+    description - описание
+    clues: set[clue] = Должна быть хотябы одна clue для валидности proofs
 Статусы person во время раследвания[StatusInDetectiveHistory]:
     suspect - подозреваемый
     witness - свидетель
