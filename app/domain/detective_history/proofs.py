@@ -7,3 +7,6 @@ class Proofs:
     ref: str
     description: str
     clues: set[Clue]
+
+    def __hash__(self) -> int:
+        return hash(self.ref)

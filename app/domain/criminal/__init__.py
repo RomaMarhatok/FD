@@ -1,9 +1,9 @@
-import person
-import criminal_type
+from app.domain.person import Person
+from app.domain.criminal.criminal_type import CriminalType
 from dataclasses import dataclass
 
 
 @dataclass
 class Criminal:
-    person: person.Person
-    criminal_type: criminal_type.CriminalType
+    person: Person
+    criminal_type: CriminalType

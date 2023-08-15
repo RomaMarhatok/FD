@@ -8,3 +8,6 @@ class Person:
     ref: str
     characteristics: characteristics.Characteristics
     dossier: dossier.Dossier
+
+    def __hash__(self) -> int:
+        return hash(self.ref)
