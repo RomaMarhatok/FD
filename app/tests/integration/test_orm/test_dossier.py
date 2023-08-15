@@ -1,20 +1,26 @@
-from sqlalchemy import text, select
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 from app.domain.person.dossier import Dossier
 from app.domain.person.dossier.status.marrige_status import MarriageStatus
 from app.domain.person.dossier.status.social_status import SocialStatus
 from app.domain.person.dossier.hobbies import Hobbies
 from app.domain.person.dossier.motives import Motives
+from app.tests.integration.test_orm.conftest import insert_dossier
 
 
 def test_dossier_can_read(migrated_pg_sync_session: Session):
-    migrated_pg_sync_session.execute(
-        text(
-            "INSERT INTO dossier(ref,history,social_status,marriage_status)"
-            + "VALUES('ref-1','some history text 1','WORKS','MARRIED'),"
-            + "('ref-2','some history text 2','UNEMPLOYED','UNMARRIED'),"
-            + "('ref-3','some history text 3','WORKS','DIVORCED')"
-        )
+    insert_dossier(
+        "ref-1", "some history text 1", "WORKS", "MARRIED", migrated_pg_sync_session
+    )
+    insert_dossier(
+        "ref-2",
+        "some history text 2",
+        "UNEMPLOYED",
+        "UNMARRIED",
+        migrated_pg_sync_session,
+    )
+    insert_dossier(
+        "ref-3", "some history text 3", "WORKS", "DIVORCED", migrated_pg_sync_session
     )
     expected = [
         Dossier(
@@ -44,7 +50,7 @@ def test_dossier_can_read(migrated_pg_sync_session: Session):
     ]
     stmt = select(Dossier)
     received = migrated_pg_sync_session.execute(stmt).scalars().all()
-    assert expected[0] == received[0]
+    assert expected == received
 
 
 def test_dossier_can_save(migrated_pg_sync_session: Session):

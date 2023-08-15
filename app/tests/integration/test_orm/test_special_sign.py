@@ -4,10 +4,11 @@ from app.domain.person.characteristics.special_sign import SpecialSign
 
 
 def test_special_sign_mapper_can_read(migrated_pg_sync_session: Session):
-    sql = text(
-        "INSERT INTO special_sign(ref,description) VALUES ('ref-1','desc-1'),('ref-2','desc-2'),('ref-3','desc-3')"
+    migrated_pg_sync_session.execute(
+        text(
+            "INSERT INTO special_sign(ref,description) VALUES ('ref-1','desc-1'),('ref-2','desc-2'),('ref-3','desc-3')"
+        )
     )
-    migrated_pg_sync_session.execute(sql)
     expected = [
         SpecialSign(ref="ref-1", description="desc-1"),
         SpecialSign(ref="ref-2", description="desc-2"),

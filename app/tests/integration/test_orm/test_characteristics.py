@@ -1,14 +1,20 @@
 from sqlalchemy import text, select
 from sqlalchemy.orm import Session
 from app.domain.person.characteristics import Characteristics, color, sex, special_sign
+from app.tests.integration.test_orm.conftest import insert_characteristics
 
 
 def test_characteristics_can_read(migrated_pg_sync_session: Session):
-    migrated_pg_sync_session.execute(
-        text(
-            "INSERT INTO characteristics(ref,weight,height,age,sex,eyes_color,hairs_color,nationality)"
-            + "VALUES('ref-1',12.3,10.3,10,'MALE','blue','brown','chinese')"
-        )
+    insert_characteristics(
+        "ref-1",
+        12.3,
+        10.3,
+        10,
+        "MALE",
+        "blue",
+        "brown",
+        "chinese",
+        migrated_pg_sync_session,
     )
     stmt = select(Characteristics)
     received = migrated_pg_sync_session.execute(stmt).scalar()
@@ -71,11 +77,16 @@ def test_characteristics_retrieving_special_signs(migrated_pg_sync_session: Sess
         text("INSERT INTO special_sign(ref,description) VALUES ('ref-1','desc-1')")
     )
     [[sid]] = migrated_pg_sync_session.execute(text("SELECT id FROM special_sign"))
-    migrated_pg_sync_session.execute(
-        text(
-            "INSERT INTO characteristics(ref,weight,height,age,sex,eyes_color,hairs_color,nationality)"
-            + "VALUES('ref-1',12.3,10.3,10,'MALE','yellow','white','european')"
-        )
+    insert_characteristics(
+        "ref-1",
+        12.3,
+        10.3,
+        10,
+        "MALE",
+        "yellow",
+        "white",
+        "european",
+        migrated_pg_sync_session,
     )
     [[cid]] = migrated_pg_sync_session.execute(text("SELECT id FROM characteristics"))
     migrated_pg_sync_session.execute(
