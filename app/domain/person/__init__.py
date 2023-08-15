@@ -1,11 +1,13 @@
-import uuid
-import characteristics
-import dossier
-from dataclasses import dataclass, field
+from app.domain.person import characteristics
+from app.domain.person import dossier
+from dataclasses import dataclass
 
 
 @dataclass(kw_only=True)
 class Person:
-    id: uuid.UUID = field(default_factory=uuid.uuid4)
+    ref: str
     characteristics: characteristics.Characteristics
-    additional_information: dossier.Dossier
+    dossier: dossier.Dossier
+
+    def __hash__(self) -> int:
+        return hash(self.ref)

@@ -54,13 +54,16 @@ members in history - person учавствующие в detective history
     members: list[MembersInHistory] - список всех участников дела
     guilty: criminal - виновный
     answer - ответ для detective history
-
+proofs:
+    ref - УИ
+    description - описание
+    clues: set[clue] = Должна быть хотябы одна clue для валидности proofs
 Статусы person во время раследвания[StatusInDetectiveHistory]:
     suspect - подозреваемый
     witness - свидетель
-    criminal - преступник
+    criminal - преступник (имеется ввиду что он на момент является подсудимым)
     innocent - невиновный
-    guilty - виновный
+    guilty - виновный (выновный в приступлении самого дела)
 -------------
 client - Пользователь
 

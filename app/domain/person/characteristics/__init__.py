@@ -1,28 +1,28 @@
-import uuid
-import sex
-import color
-import special_sign
-from dataclasses import field
+from app.domain.person.characteristics import sex
+from app.domain.person.characteristics import color
+from app.domain.person.characteristics import special_sign
+from dataclasses import dataclass
 
 
+@dataclass(kw_only=True)
 class Characteristics:
-    def __init__(
-        self,
-        weight: float,
-        height: float,
-        age: int,
-        sex: sex.Sex,
-        eyes: color.Color,
-        hairs: color.Color,
-        nationality: str,
-        special_signs: list[special_sign.SpecialSign],
-    ) -> None:
-        self.id: uuid.UUID = field(default_factory=uuid.uuid4)
-        self.weight = weight
-        self.height = height
-        self.age = age
-        self.sex = sex
-        self.eyes = eyes
-        self.hairs = hairs
-        self.special_signs = special_signs
-        self.nationality = nationality
+    ref: str
+    weight: float
+    height: float
+    age: int
+    sex: sex.Sex
+    _eyes_color: color.Color
+    _hairs_color: color.Color
+    nationality: str
+    special_signs: set[special_sign.SpecialSign]
+
+    @property
+    def eyes(self) -> color.Color:
+        return self._eyes_color
+
+    @property
+    def hairs(self) -> color.Color:
+        return self._hairs_color
+
+    def __hash__(self) -> int:
+        return hash(self.ref)

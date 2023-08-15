@@ -1,12 +1,14 @@
-import person
-import status
+from dataclasses import dataclass
+from app.domain.person import Person
+from app.domain.detective_history.status import PersonStatusInDetectiveHistory
 
-# from . import DetectiveHistory
 
-
+@dataclass(kw_only=True)
 class DetectiveHistoryMember:
-    # detective_history: DetectiveHistory
-    person: person.Person
-    person_status: status.PersonStatusInDetectiveHistory = (
-        status.PersonStatusInDetectiveHistory.INNOCENT
+    person: Person
+    person_status: PersonStatusInDetectiveHistory = (
+        PersonStatusInDetectiveHistory.INNOCENT
     )
+
+    def __hash__(self) -> int:
+        return hash(self.person.__hash__())

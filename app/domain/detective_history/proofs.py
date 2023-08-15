@@ -1,8 +1,12 @@
 from dataclasses import dataclass
-import clue
+from app.domain.detective_history.clue import Clue
 
 
-@dataclass
+@dataclass(kw_only=True)
 class Proofs:
-    clue: clue.Clue
+    ref: str
     description: str
+    clues: set[Clue]
+
+    def __hash__(self) -> int:
+        return hash(self.ref)

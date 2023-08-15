@@ -1,29 +1,31 @@
-import member as history_member
-import status
+from dataclasses import dataclass
+from app.domain.person import Person
+from app.domain.detective_history import status, clue, proofs, member as history_member
 
 
+@dataclass(kw_only=True)
 class DetectiveHistory:
-    clues: list[str]  # rework
-    proofs: list[str]  # rework
+    ref: str
+    clues: set[clue.Clue]
+    proofs: set[proofs.Proofs]
     incident_description: str
-    members: list[history_member.DetectiveHistoryMember]
-    answer: history_member.DetectiveHistoryMember
+    members: set[history_member.DetectiveHistoryMember]
+    history_answer: Person
+
+    def _get_members(
+        self, member_status: status.PersonStatusInDetectiveHistory
+    ) -> list[history_member.DetectiveHistoryMember]:
+        return [
+            member for member in self.members if member.person_status == member_status
+        ]
 
     @property
-    def suspect(self) -> list:
-        return [
-            member
-            for member in self.members
-            if member.person_status == status.PersonStatusInDetectiveHistory.SUSPECT
-        ]
+    def suspect(self) -> list[history_member.DetectiveHistoryMember]:
+        return self._get_members(status.PersonStatusInDetectiveHistory.SUSPECT)
 
     @property
     def witnesses(self) -> list[history_member.DetectiveHistoryMember]:
-        return [
-            member
-            for member in self.members
-            if member.person_status == status.PersonStatusInDetectiveHistory.WITNESS
-        ]
+        return self._get_members(status.PersonStatusInDetectiveHistory.WITNESS)
 
     @property
     def guilty(self) -> history_member.DetectiveHistoryMember | None:
