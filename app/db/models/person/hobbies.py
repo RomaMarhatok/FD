@@ -6,5 +6,5 @@ hobbies_table = Table(
     SqlAlchemyBaseModel.metadata,
     Column("id", Integer(), primary_key=True),
     Column("ref", String(255), nullable=False, unique=True, index=True),
-    Column("description", Text(), nullable=True),
+    Column("description", Text(), nullable=False),
 )
