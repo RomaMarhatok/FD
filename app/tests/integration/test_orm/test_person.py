@@ -11,6 +11,35 @@ from app.tests.integration.test_orm.conftest import (
 )
 
 
+def make_person() -> Person:
+    characteristics = Characteristics(
+        ref="characteristics-ref",
+        weight=12.3,
+        height=10.3,
+        age=10,
+        sex=sex.Sex.MALE,
+        _eyes_color=color.Color.color_from_name("blue"),
+        _hairs_color=color.Color.color_from_name("brown"),
+        nationality="chinese",
+        special_signs=set(),
+    )
+
+    dossier = Dossier(
+        "dossier-ref",
+        "some history text 1",
+        set(),
+        set(),
+        SocialStatus.WORKS,
+        MarriageStatus.MARRIED,
+    )
+
+    return Person(
+        ref="person-ref",
+        characteristics=characteristics,
+        dossier=dossier,
+    )
+
+
 def test_person_can_read(migrated_pg_sync_session: Session):
     insert_characteristics(
         "characteristics-ref",
@@ -73,32 +102,7 @@ def test_person_can_read(migrated_pg_sync_session: Session):
 
 
 def test_person_can_save(migrated_pg_sync_session: Session):
-    characteristics = Characteristics(
-        ref="characteristics-ref",
-        weight=12.3,
-        height=10.3,
-        age=10,
-        sex=sex.Sex.MALE,
-        _eyes_color=color.Color.color_from_name("blue"),
-        _hairs_color=color.Color.color_from_name("brown"),
-        nationality="chinese",
-        special_signs=set(),
-    )
-
-    dossier = Dossier(
-        "dossier-ref",
-        "some history text 1",
-        set(),
-        set(),
-        SocialStatus.WORKS,
-        MarriageStatus.MARRIED,
-    )
-
-    person = Person(
-        ref="person-ref",
-        characteristics=characteristics,
-        dossier=dossier,
-    )
+    person = make_person()
     migrated_pg_sync_session.add(person)
     migrated_pg_sync_session.commit()
     stmt = select(Person)
