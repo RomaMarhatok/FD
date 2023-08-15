@@ -89,3 +89,14 @@ def init_mappers():
         },
     )
     clue_mapper = mapper.map_imperatively(Clue, clue_table)
+    mapper.map_imperatively(
+        Proofs,
+        proof_table,
+        properties={
+            "clues": relationship(
+                clue_mapper,
+                secondary=proof_clue_table,
+                collection_class=set,
+            )
+        },
+    )

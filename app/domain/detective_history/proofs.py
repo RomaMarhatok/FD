@@ -1,10 +1,9 @@
-import uuid
-from dataclasses import dataclass, field
-import clue
+from dataclasses import dataclass
+from app.domain.detective_history.clue import Clue
 
 
-@dataclass
+@dataclass(kw_only=True)
 class Proofs:
-    clue: clue.Clue
+    ref: str
     description: str
-    ref: uuid.UUID = field(default_factory=uuid.uuid4)
+    clues: set[Clue]
