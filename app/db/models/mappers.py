@@ -11,6 +11,8 @@ from app.db.models.person.dossier import (
     dossier_motives_table,
     dossier_hobbies_table,
 )
+from app.db.models.detective_history.proofs import proof_clue_table, proof_table
+from app.db.models.detective_history.clue import clue_table
 from app.db.models.person.person import person_table
 from app.db.models.criminal.criminal import criminal_table
 from app.domain.person.characteristics.special_sign import SpecialSign
@@ -20,6 +22,8 @@ from app.domain.person.dossier.hobbies import Hobbies
 from app.domain.person.dossier import Dossier
 from app.domain.person import Person
 from app.domain.criminal import Criminal
+from app.domain.detective_history.clue import Clue
+from app.domain.detective_history.proofs import Proofs
 
 
 def init_mappers():
@@ -84,3 +88,4 @@ def init_mappers():
             "person": relationship(person_mapper),
         },
     )
+    clue_mapper = mapper.map_imperatively(Clue, clue_table)

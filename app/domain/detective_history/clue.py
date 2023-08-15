@@ -1,7 +1,7 @@
-import uuid
-from dataclasses import field
+from dataclasses import dataclass
 
 
+@dataclass(kw_only=True)
 class Clue:
+    ref: str
     description: str
-    ref: uuid.UUID = field(default_factory=uuid.uuid4)
