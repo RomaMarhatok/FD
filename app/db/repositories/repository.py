@@ -1,9 +1,8 @@
-from typing import Generic, TypeVar
+from typing import Generic
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.repositories.base.abstract_repo import AbstractRepository
-
-DOMAIN_MODEL = TypeVar("DOMAIN_MODEL")
+from app.db.repositories import DOMAIN_MODEL
 
 
 class SqlAlchemyRepository(Generic[DOMAIN_MODEL], AbstractRepository):

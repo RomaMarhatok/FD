@@ -8,7 +8,7 @@ class AbstractRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def add(self, model):
+    async def add(self, model) -> None:
         raise NotImplementedError
 
     @abstractmethod

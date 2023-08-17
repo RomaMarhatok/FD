@@ -7,6 +7,7 @@ from app.tests.integration.test_repository.conftest import (
 from app.db.repositories.repository import SqlAlchemyRepository
 from app.domain.person import Person
 from app.domain.detective_history import DetectiveHistory
+from app.domain.detective_history.clue import Clue
 
 
 @pytest.mark.asyncio
@@ -55,3 +56,23 @@ async def test_repository_can_read_detective_history(
     )
     received = await repo.get(detective_history.ref)
     assert detective_history == received
+
+
+@pytest.mark.asyncio
+async def test_repository_can_read_clue(migrated_pg_async_session: AsyncSession):
+    clue = Clue(ref="clue-ref", description="descrition")
+    migrated_pg_async_session.add(clue)
+    await migrated_pg_async_session.commit()
+    repo = SqlAlchemyRepository[Clue](migrated_pg_async_session, Clue)
+    received = await repo.get(clue.ref)
+    assert clue == received
+
+
+@pytest.mark.asyncio
+async def test_repository_can_save_clue(migrated_pg_async_session: AsyncSession):
+    clue = Clue(ref="clue-ref", description="descrition")
+    repo = SqlAlchemyRepository[Clue](migrated_pg_async_session, Clue)
+    await repo.add(clue)
+    await migrated_pg_async_session.commit()
+    received = await repo.get(clue.ref)
+    assert clue == received
